@@ -121,7 +121,7 @@ If `jobsFound` equals `maxJobsPerCompany`, the count is a floor: report "25+". T
 
 ### Step 4: Check small boards and retry unread companies
 
-**Suspiciously small boards.** Flag a board when `jobsFound + jobsFilteredOut` is under about 10 and the company is clearly larger than that. A guessed board name can land on an old, abandoned board, and it still reports `success`. In the author's test, `ramp.com` resolved to a Greenhouse board with one job ("Copy of Chief Legal Officer", recently dated, so dates do not expose this), while the real Ashby board has 172 jobs. Report no-match results from a flagged board as "board looks wrong", not as no match.
+**Suspiciously small boards.** Flag a board when `jobsFound + jobsFilteredOut` is under about 10 and the company is clearly larger than that. A guessed board name can land on an old, abandoned board, and it still reports `success`. In the author's test, `ramp.com` resolved to a Greenhouse board with one job ("Copy of Chief Legal Officer", recently dated, so dates do not expose this), while the real Ashby board has 172 jobs. A guess can also land on a different company with a similar name: `gong.io` matched a SmartRecruiters board named "GONG!", a New York startup with 7 jobs, and it reported `success` too. If a row's `companyName` isn't the company the user asked about, treat it as a wrong board and leave the row out. Report no-match results from a flagged board as "board looks wrong", not as no match.
 
 To see which board was used when there are no matching rows, rerun that company with no keywords and `"maxJobsPerCompany": 1` ($0.003) and read `careersUrl` from the row.
 
@@ -217,6 +217,7 @@ Check the route fits before using it; the core workflow above suits most request
 | Case | What happened | How this skill handles it |
 |---|---|---|
 | `ramp.com` | Resolved to an old 1-job Greenhouse board; real Ashby board has 172 jobs | Board-size check; pass the board URL |
+| `gong.io` | Resolved to an unrelated SmartRecruiters board, "GONG!" | Board-size check and company-name check; pass the board URL |
 | HubSpot, Rippling, Deel | Site found, 0 jobs read, `status: fail` | Reported as unread |
 | `personio.com` | No career page resolved (homepage returned 429) | Reported as unread |
 | Stripe's "Manager, Competitive Programs" | Matched only through its department | Team-only label, reviewed by hand |
