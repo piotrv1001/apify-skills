@@ -15,6 +15,7 @@ Pass `--list` to preview, or `-s <name>` to install one skill.
 | Skill | What it does |
 |---|---|
 | [`apify-cross-border-sourcing`](skills/apify-cross-border-sourcing/SKILL.md) | AliExpress product URL → reverse image search on 1688 and Alibaba.com → price ladder: retail vs. wholesale price, MOQ, supplier and match quality. |
+| [`apify-hiring-signals`](skills/apify-hiring-signals/SKILL.md) | Target companies + role keywords → career pages and ATS boards → deduped "who is hiring for X" list: matching roles, match strength and newest posting per company, plus the companies that could not be read. |
 
 ## Requirements
 
